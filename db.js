@@ -16,7 +16,8 @@ const deleteTodoById = (id) => {
     const index = db.findIndex(it => it.id === id);
     if(index === -1)
         throw new Error(`Cannot delete Todo ${id} because it does not exist`);
-    db.splice(index, 1);
+    
+    return db.splice(index, 1)[0];
 }
 
 module.exports = {
