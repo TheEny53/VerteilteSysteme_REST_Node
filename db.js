@@ -9,11 +9,11 @@ const getAllTodos = () => {
 }
 
 const getTodoById = (id) => {
-    return db.find(it => it.id === id);
+    return db.find(it => it.id === +id);
 }
 
 const deleteTodoById = (id) => {
-    const index = db.findIndex(it => it.id === id);
+    const index = db.findIndex(it => it.id === +id);
     if(index === -1)
         throw new Error(`Cannot delete Todo ${id} because it does not exist`);
     
