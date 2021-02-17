@@ -1,22 +1,22 @@
-const Database = require('better-sqlite3');
-const db = new Database('mydb.db', { verbose: console.log });
-
-db.prepare('create table if not exists todos ( id integer primary key autoincrement, name text not null, description text not null );').run()
+const db = [];
 
 const insertTodo = (name, description) => {
-    return db.prepare('insert into todos (name, description) values (?, ?)').run(name, description);
-}
+    return db.push({ name, description });
+};
 
 const getAllTodos = () => {
-    return db.prepare('select * from todos').all();
+    return db.map(it => ({ ...it }));
 }
 
 const getTodoById = (id) => {
-    return db.prepare('select * from todos where id = ?').get(id);
+    return db.find(it => it.id === id);
 }
 
 const deleteTodoById = (id) => {
-    return db.prepare('delete from todos where id = ?').run(id);
+    const index = db.findIndex(it => it.id === id);
+    if(index === -1)
+        throw new Error(`Cannot delete Todo ${id} because it does not exist`);
+    db.splice(index, 1);
 }
 
 module.exports = {
