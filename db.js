@@ -1,7 +1,7 @@
 const db = [];
 
 const insertTodo = (name, description) => {
-    return db.push({ name, description });
+    return db.push({ name, description, id: db.length });
 };
 
 const getAllTodos = () => {
